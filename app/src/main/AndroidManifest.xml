@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ABM2"
+        tools:targetApi="31">
+        <activity
+            android:name=".AssessmentDetailedView"
+            android:exported="false"
+            android:label="Assessment Details"
+            android:parentActivityName=".CourseDetailedView"/>
+        <activity
+            android:name=".AssessmentCreate"
+            android:exported="false"
+            android:label="Assessment Create"
+            android:parentActivityName=".AssessmentDetailedView"/>
+        <activity
+            android:name=".AssessmentEdit"
+            android:exported="false"
+            android:label="Assessment Edit"
+            android:parentActivityName=".AssessmentDetailedView"/>
+        <activity
+            android:name=".Home"
+            android:exported="false"
+            android:label="Home"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".CourseDetailedView"
+            android:exported="false"
+            android:label="Course Details"
+            android:parentActivityName=".TermsDetailedView" />
+        <activity
+            android:name=".TermsDetailedView"
+            android:exported="false"
+            android:label="Term Details"
+            android:parentActivityName=".Home" />
+        <activity
+            android:name=".CourseSelect"
+            android:exported="false"
+            android:label="@string/title_activity_course_select"
+            android:parentActivityName=".TermsDetailedView"
+            android:theme="@style/Theme.ABM2" />
+        <activity
+            android:name=".CourseEdit"
+            android:exported="false"
+            android:label="Course Edit"
+            android:parentActivityName=".CourseSelect"
+            android:theme="@style/Theme.ABM2" />
+        <activity
+            android:name=".TermCreate"
+            android:exported="false"
+            android:label="Term Creation"
+            android:parentActivityName=".Home" />
+        <activity
+            android:name=".TermEdit"
+            android:exported="false"
+            android:label="Term Edit"
+            android:parentActivityName=".TermsDetailedView" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="Welcome Screen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+            <receiver android:name=".Alert.BackgroundAlert"
+                android:exported="true">
+                <intent-filter>
+                    <action android:name="android.net.conn.CONNECTIVITY_CHANGE"
+                        tools:ignore="BatteryLife" />
+                </intent-filter>
+            </receiver>
+    </application>
+</manifest>

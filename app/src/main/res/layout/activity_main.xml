@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/editTextTextMultiLine2"
+        android:layout_width="408dp"
+        android:layout_height="174dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="1dp"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:text="Welcome To The Term Selector Click Next To Continue!!!"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="34sp"
+        android:typeface="serif"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="139dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="152dp"
+        android:layout_marginBottom="340dp"
+        android:fontFamily="casual"
+        android:onClick="toHome"
+        android:text="Next"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2"
+        app:layout_constraintVertical_bias="0.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>
