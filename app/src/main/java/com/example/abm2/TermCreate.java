@@ -70,7 +70,7 @@ public class TermCreate extends AppCompatActivity {
 
         else {
             // validating if the text fields are empty or not.
-            if (nameTerm.isEmpty() && dateStart.isEmpty() && dateEnd.isEmpty()) {
+            if (nameTerm.isEmpty() || dateStart.isEmpty() || dateEnd.isEmpty()) {
                 Toast.makeText(TermCreate.this, "One or more fields are empty..", Toast.LENGTH_SHORT).show();
             } else {
                 boolean recordExists = termsDatabase.checkIfExists("Terms", "term", nameTerm);
