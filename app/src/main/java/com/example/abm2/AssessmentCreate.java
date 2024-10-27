@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,12 +66,29 @@ public class AssessmentCreate extends AppCompatActivity {
 
 
         assessmentSave.setOnClickListener(view -> {
-            termsDatabase.addNewAssessment(assessmentName.getText().toString(),assessmentStart.getText().toString(),
-                    assessmentEnd.getText().toString(),assessmentType.getSelectedItem().toString(),assessmentInfo.getText().toString(),assessmentCourseId);
-            Intent i = new Intent(this,CourseDetailedView.class);
-            i.putExtra("tmName",courseNameD);
-            i.putExtra("tName",termName);
-            startActivity(i);
+            if(assessmentStart.getText().toString().equals(assessmentEnd.getText().toString())){
+                Toast.makeText(AssessmentCreate.this, "Please Choose End Date greater then Start Date..", Toast.LENGTH_LONG).show();
+            }
+
+            else {
+                // validating if the text fields are empty or not.
+                if (assessmentName.getText().toString().isEmpty() && assessmentStart.getText().toString().isEmpty() &&
+                        assessmentEnd.getText().toString().isEmpty() && assessmentInfo.getText().toString().isEmpty() && assessmentType.getSelectedItem().toString().isEmpty()) {
+                    Toast.makeText(AssessmentCreate.this, "One or more fields are empty..", Toast.LENGTH_SHORT).show();
+                } else {
+                    boolean recordExists = termsDatabase.checkIfExists("Assessment", "assessment", assessmentName.getText().toString());
+                    if (recordExists) {
+                        Toast.makeText(this, assessmentName.getText().toString() + " already exists, please rename assessment.", Toast.LENGTH_LONG).show();
+                    } else {
+                        termsDatabase.addNewAssessment(assessmentName.getText().toString(), assessmentStart.getText().toString(),
+                                assessmentEnd.getText().toString(), assessmentType.getSelectedItem().toString(), assessmentInfo.getText().toString(), assessmentCourseId);
+                        Intent i = new Intent(this, CourseDetailedView.class);
+                        i.putExtra("tmName", courseNameD);
+                        i.putExtra("tName", termName);
+                        startActivity(i);
+                    }
+                }
+            }
         });
 
     }
