@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".MainActivity">
 
@@ -29,8 +29,8 @@
         android:id="@+id/nextButton"
         android:layout_width="139dp"
         android:layout_height="64dp"
-        android:layout_marginTop="152dp"
-        android:layout_marginBottom="340dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginBottom="88dp"
         android:fontFamily="casual"
         android:onClick="toHome"
         android:text="Next"
@@ -39,7 +39,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

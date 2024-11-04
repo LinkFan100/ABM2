@@ -22,9 +22,9 @@
 
     <EditText
         android:id="@+id/assessmentInfoField"
-        android:layout_width="239dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="64dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Assessment Information"
@@ -32,6 +32,7 @@
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/assessmentStartDateBtn" />
 
@@ -39,8 +40,8 @@
         android:id="@+id/assessmentStartDateBtn"
         android:layout_width="159dp"
         android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="268dp"
+        android:layout_marginTop="28dp"
         android:hint="Start Date"
         android:tooltipText="Select Start Date"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,30 +52,33 @@
         android:layout_width="159dp"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="32dp"
-        android:tooltipText="Select End Date"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="268dp"
         android:hint="End Date"
+        android:tooltipText="Select End Date"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.201"
         app:layout_constraintStart_toEndOf="@+id/assessmentStartDateBtn"
         app:layout_constraintTop_toBottomOf="@+id/assessmentTypeField" />
 
     <Button
         android:id="@+id/assessmentSaveBtn"
-        android:layout_width="191dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="70dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="254dp"
         android:text="Save Assessment"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.917"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/assessmentInfoField" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/assessmentTypeField"
         android:layout_width="234dp"
         android:layout_height="48dp"
-        android:layout_marginTop="31dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/assessmentNameField" />
 

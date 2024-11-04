@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ABM2</string>
+    <string name="app_name">Student Scheduler</string>
     <string name="title_activity_course_select">CourseSelect</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -93,4 +93,6 @@
     <string name="action_settings">Settings</string>
     <string name="please_enter_start_date">Please Enter Start Date</string>
     <string name="update">Update</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

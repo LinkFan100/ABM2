@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".CourseSelect">
 
     <EditText
         android:id="@+id/courseNameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="44dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Course Title"
         android:inputType="textMultiLine"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.378"
+        app:layout_constraintHorizontal_bias="0.543"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,27 +26,27 @@
         android:id="@+id/instructorNameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="124dp"
         android:ems="10"
         android:hint="Instructor Name"
         android:inputType="text"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintHorizontal_bias="0.077"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseStatusField" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/instructorPhoneField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="Instructor Phone"
         android:inputType="phone"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintHorizontal_bias="0.078"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/instructorNameField" />
 
@@ -54,13 +54,13 @@
         android:id="@+id/instructorEmailField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Instructor Email"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintHorizontal_bias="0.078"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/instructorPhoneField" />
 
@@ -68,31 +68,32 @@
         android:id="@+id/courseSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="332dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="84dp"
         android:text="Save Course"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/courseStatusField" />
 
     <Button
         android:id="@+id/courseStartDateField"
-        android:layout_width="136dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="44dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="47dp"
         android:hint="Start Date"
         android:tooltipText="Select Start Date"
         app:layout_constraintEnd_toStartOf="@+id/courseEndDateField"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.842"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/courseNameField" />
 
     <Button
         android:id="@+id/courseEndDateField"
-        android:layout_width="136dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="56dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="212dp"
         android:hint="End Date"
         android:tooltipText="Select End Date"
         app:layout_constraintEnd_toEndOf="parent"
@@ -102,8 +103,9 @@
         android:id="@+id/courseStatusField"
         android:layout_width="197dp"
         android:layout_height="39dp"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.554"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/courseStartDateField" />
 

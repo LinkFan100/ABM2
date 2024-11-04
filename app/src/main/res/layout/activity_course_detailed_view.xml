@@ -5,18 +5,28 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CourseDetailedView">
+    tools:context=".CourseDetailedView"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="8dp">
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="11dp"
+        android:text="Name:"
+        app:layout_constraintBottom_toTopOf="@+id/textView14"
+        app:layout_constraintEnd_toStartOf="@+id/insNameDetail" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="421dp"
         android:layout_height="21dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="83dp"
         android:text="-----------------------------------------------------------------------"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +48,7 @@
         android:id="@+id/textView5"
         android:layout_width="421dp"
         android:layout_height="21dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="28dp"
         android:text="-----------------------------------------------------------------------"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -51,11 +61,13 @@
         android:id="@+id/relativeLayout2"
         android:layout_width="413dp"
         android:layout_height="261dp"
-        android:layout_marginBottom="11dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="28dp"
         app:layout_constraintBottom_toTopOf="@+id/addAssessments"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/assessmentsRecDetail"
@@ -67,8 +79,8 @@
         android:id="@+id/addAssessments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="60dp"
         android:onClick="goToAssessmentsCreate"
         android:text="Add Assessments"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -78,7 +90,7 @@
         android:id="@+id/textView6"
         android:layout_width="169dp"
         android:layout_height="35dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="24dp"
         android:text="Assessments"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -171,8 +183,8 @@
 
     <TextView
         android:id="@+id/insNameDetail"
-        android:layout_width="181dp"
-        android:layout_height="30dp"
+        android:layout_width="75dp"
+        android:layout_height="25dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
         android:ems="10"
@@ -185,8 +197,8 @@
 
     <TextView
         android:id="@+id/insEmailDetail"
-        android:layout_width="181dp"
-        android:layout_height="30dp"
+        android:layout_width="75dp"
+        android:layout_height="25dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="12dp"
         android:ems="10"
@@ -198,8 +210,8 @@
 
     <TextView
         android:id="@+id/insPhone"
-        android:layout_width="181dp"
-        android:layout_height="30dp"
+        android:layout_width="75dp"
+        android:layout_height="25dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="12dp"
         android:ems="10"
@@ -208,5 +220,46 @@
         android:textAlignment="textEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/insEmailDetail" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="411dp"
+        android:layout_height="525dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="138dp"
+        tools:visibility="gone">
+
+    </FrameLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fltViewNotesBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="72dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_agenda" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Email:"
+        app:layout_constraintBottom_toTopOf="@+id/textView17"
+        app:layout_constraintEnd_toStartOf="@+id/insEmailDetail" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:text="Phone:"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintEnd_toStartOf="@+id/insPhone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

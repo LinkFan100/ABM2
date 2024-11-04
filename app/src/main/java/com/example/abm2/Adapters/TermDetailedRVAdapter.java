@@ -17,8 +17,8 @@ import java.util.ArrayList;
 
 public class TermDetailedRVAdapter extends RecyclerView.Adapter<TermDetailedRVAdapter.ViewHolder>{
     private final RecycleViewInterface recycleViewInterface;
-    private ArrayList<Courses> courseArrayList;
-    private Context context;
+    private final ArrayList<Courses> courseArrayList;
+    private final Context context;
     int selected_item = -1;
     Home home;
 
@@ -53,7 +53,7 @@ public class TermDetailedRVAdapter extends RecyclerView.Adapter<TermDetailedRVAd
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView termCourseName;
+        private final TextView termCourseName;
 
         public ViewHolder(@NonNull View itemView, RecycleViewInterface recycleViewInterface) {
             super(itemView);

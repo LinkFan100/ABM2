@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.abm2.Databases.TermsDatabase;
 
+import java.text.ParseException;
 import java.util.Calendar;
 
 public class TermEdit extends AppCompatActivity {
@@ -24,6 +25,7 @@ public class TermEdit extends AppCompatActivity {
      EditText termField;
     private Button startField,endField,updateTerm;
     boolean updatePass = false;
+    boolean dateCorrect = false;
 
     //Date
     Calendar calendar = Calendar.getInstance();
@@ -62,18 +64,28 @@ public class TermEdit extends AppCompatActivity {
         ((Button)findViewById(R.id.endDate)).setText(sub2);
 
         updateTerm.setOnClickListener(v -> {
+                // validating if the text fields are empty or not.
+                if (termField.getText().toString().isEmpty() || startField.getText().toString().isEmpty() || endField.getText().toString().isEmpty()) {
+                    Toast.makeText(TermEdit.this, "One or more fields are empty..", Toast.LENGTH_SHORT).show();
+                } else {
             if(startField.getText().toString().equals(endField.getText().toString())){
                 Toast.makeText(TermEdit.this, "Please Choose End Date greater then Start Date..", Toast.LENGTH_LONG).show();
             }
             else {
-                // validating if the text fields are empty or not.
-                if (termField.getText().toString().isEmpty() && startField.getText().toString().isEmpty() && endField.getText().toString().isEmpty()) {
-                    Toast.makeText(TermEdit.this, "One or more fields are empty..", Toast.LENGTH_SHORT).show();
-                } else {
                     boolean recordNameExists = termsDatabase.checkIfExists("Terms", "term", termField.getText().toString());
                     boolean recordIDExists = termsDatabase.checkIfExists("Terms", "id", termID);
                     boolean updateCheck = termsDatabase.checkIfExistsUpdate("Terms", "term", "id",termField.getText().toString(),termID);
-                    if (recordNameExists) {
+                try {
+                    boolean dateCheck = termsDatabase.dateChecker(startField.getText().toString(),endField.getText().toString());
+                    if(dateCheck){
+                        dateCorrect = true;
+                    }
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+                if (recordNameExists) {
                     if(updateCheck){
                          updatePass = true;
 
@@ -86,18 +98,24 @@ public class TermEdit extends AppCompatActivity {
                         updatePass = true;
                     }
 
+
                      if (updatePass){
-                        // inside this method we are calling an update course
-                        // method and passing all our edit text values.
-                        termsDatabase.updateTerm(nameTE, termField.getText().toString(), startField.getText().toString(), endField.getText().toString());
+                         if(!dateCorrect){
+                             Toast.makeText(this, "Start date is before current date or End Date is before Start Date.", Toast.LENGTH_SHORT).show();
+                         }
+                         else {
+                             // inside this method we are calling an update course
+                             // method and passing all our edit text values.
+                             termsDatabase.updateTerm(nameTE, termField.getText().toString(), startField.getText().toString(), endField.getText().toString());
 
-                        // displaying a toast message that our course has been updated.
-                        Toast.makeText(TermEdit.this, "Term Updated..", Toast.LENGTH_SHORT).show();
+                             // displaying a toast message that our course has been updated.
+                             Toast.makeText(TermEdit.this, "Term Updated..", Toast.LENGTH_SHORT).show();
 
-                        // launching our main activity.
-                        Intent i1 = new Intent(TermEdit.this, Home.class);
-                        i1.putExtra("editedTermName", termField.getText().toString());
-                        startActivity(i1);
+                             // launching our main activity.
+                             Intent i1 = new Intent(TermEdit.this, Home.class);
+                             i1.putExtra("editedTermName", termField.getText().toString());
+                             startActivity(i1);
+                         }
                     }
                 }
             }

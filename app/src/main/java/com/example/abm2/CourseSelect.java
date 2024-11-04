@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,9 +59,13 @@ public class CourseSelect extends AppCompatActivity {
             courseInsEmail = findViewById(R.id.instructorEmailField);
 
 //Adding Items to spinner
-        String[] items = new String[]{"Status","In progress", "Completed", "Dropped", "Plan to take"};
+        String[] items = new String[]{"In progress", "Completed", "Dropped", "Plan to take"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         courseStatus.setAdapter(adapter);
+
+
+
+
 
             Intent i1 = getIntent();
         termCourseId = i1.getStringExtra("tID");
@@ -74,29 +80,44 @@ public class CourseSelect extends AppCompatActivity {
             courseEnd.setOnClickListener(View -> endDatePicker(courseEnd));
 
             courseSave.setOnClickListener(view -> {
+                            Intent i2 = new Intent(CourseSelect.this, TermsDetailedView.class);
 
-                Intent i2 = new Intent(CourseSelect.this, TermsDetailedView.class);
+                            String cName = courseName.getText().toString();
+                            String cStart = courseStart.getText().toString();
+                            String cEnd = courseEnd.getText().toString();
+                            String cStatus = courseStatus.getSelectedItem().toString();
+                            String cInsName = courseInsName.getText().toString();
+                            String cInsPhone = courseInsPhone.getText().toString();
+                            String cInsEmail = courseInsEmail.getText().toString();
+                            String cTermId = termCourseId;
+                // validating if the text fields are empty or not.
+                if (cName.isEmpty() || cStart.isEmpty() || cEnd.isEmpty() || cStatus.isEmpty() || cInsName.isEmpty()
+                || cInsPhone.isEmpty() || cInsEmail.isEmpty()) {
+                    Toast.makeText(CourseSelect.this, "One or more fields are empty..", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (cStart.equals(cEnd)) {
+                        Toast.makeText(CourseSelect.this, "Please Choose End Date greater then Start Date..", Toast.LENGTH_LONG).show();
+                    } else {
+                        boolean recordExists = termsDatabase.checkIfExists("Courses", "course", cName);
+                        if (recordExists) {
+                            Toast.makeText(this, cName + " already exists, please rename assessment.", Toast.LENGTH_LONG).show();
+                        } else {
 
-                String cName = courseName.getText().toString();
-                String cStart = courseStart.getText().toString();
-                String cEnd = courseEnd.getText().toString();
-                String cStatus = courseStatus.getSelectedItem().toString();
-                String cInsName = courseInsName.getText().toString();
-                String cInsPhone = courseInsPhone.getText().toString();
-                String cInsEmail = courseInsEmail.getText().toString();
-                String cTermId = termCourseId;
 
-                termsDatabase.addNewCourse(cName,cStart,cEnd,cStatus,cInsName,cInsPhone,cInsEmail,cTermId);
-                courseName.setText("");
-                courseStart.setText("");
-                courseEnd.setText("");
-                courseStatus.setSelection(0);
-                courseInsName.setText("");
-                courseInsPhone.setText("");
-                courseInsEmail.setText("");
-                i2.putExtra("tDName",termName);
-                Toast.makeText(this, termName, Toast.LENGTH_SHORT).show();
-                startActivity(i2);
+                            termsDatabase.addNewCourse(cName, cStart, cEnd, cStatus, cInsName, cInsPhone, cInsEmail, cTermId);
+                            courseName.setText("");
+                            courseStart.setText("");
+                            courseEnd.setText("");
+                            courseStatus.setSelection(0);
+                            courseInsName.setText("");
+                            courseInsPhone.setText("");
+                            courseInsEmail.setText("");
+                            i2.putExtra("tDName", termName);
+                            Toast.makeText(this, "Course "+cName + " has been added.", Toast.LENGTH_SHORT).show();
+                            startActivity(i2);
+                        }
+                    }
+                }
             });
     }
     private void startDatePicker(Button s, Button e){
@@ -123,4 +144,5 @@ public class CourseSelect extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);}
+
 }

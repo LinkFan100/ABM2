@@ -56,7 +56,7 @@ public class Home extends AppCompatActivity implements RecycleViewInterface {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle("Home");
+
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 

@@ -37,7 +37,6 @@ public class TermsDetailedView extends AppCompatActivity implements RecycleViewI
     private RecyclerView homeRec;
     String termIdGet;
     String name;
-    int termId;
     int id;
 
     Button createCourse;
@@ -52,7 +51,6 @@ public class TermsDetailedView extends AppCompatActivity implements RecycleViewI
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle("Home");
         actionBar.setDisplayHomeAsUpEnabled(true);
         termsDatabase = new TermsDatabase(TermsDetailedView.this);
         Intent i = getIntent();
@@ -115,6 +113,8 @@ public class TermsDetailedView extends AppCompatActivity implements RecycleViewI
         getMenuInflater().inflate(R.menu.menu,menu);
         menu.findItem(R.id.menuEdit).setTitle("Edit Term");
         menu.findItem(R.id.menuDelete).setTitle("Delete Term");
+        menu.findItem(R.id.menuAlarmSet).setVisible(false);
+        menu.findItem(R.id.menuNoteCreate).setVisible(false);
         return true;
     }
     @Override

@@ -12,6 +12,9 @@ roomCompiler = "2.6.1"
 roomRuntime = "2.6.1"
 roomTesting = "2.6.1"
 compiler = "3.2.0-alpha11"
+legacySupportV4 = "1.0.0"
+lifecycleLivedataKtx = "2.8.5"
+lifecycleViewmodelKtx = "2.8.5"
 
 [libraries]
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
@@ -26,6 +29,9 @@ room-common = { group = "androidx.room", name = "room-common", version.ref = "ro
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 room-testing = { module = "androidx.room:room-testing", version.ref = "roomTesting" }
 androidx-compiler = { group = "androidx.databinding", name = "compiler", version.ref = "compiler" }
+androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
+androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -4,7 +4,7 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-10-17T16:09:18.892665500Z">
+        <DropdownSelection timestamp="2024-11-04T06:00:46.810571500Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\Nero Home-Server\.android\avd\API_35.avd" />

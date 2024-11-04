@@ -8,4 +8,10 @@
     <item
         android:id="@+id/menuDelete"
         android:title="Delete" />
+    <item
+        android:id="@+id/menuAlarmSet"
+        android:title="Set Alarms" />
+    <item
+        android:id="@+id/menuNoteCreate"
+        android:title="Create Note" />
 </menu>

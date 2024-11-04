@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.abm2.Databases.TermsDatabase;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -26,7 +27,9 @@ public class CourseEdit extends AppCompatActivity {
      EditText courseName,courseInsName,courseInsPhone,courseInsEmail;
      Spinner courseStatus;
      Button courseStart,courseEnd, courseUpdate;
-     String termCourseId, termEName;
+     String termCourseId, termEName, courseId;
+     private boolean updatePass = false;
+    boolean dateCorrect = false;
 
     //Date
     Calendar calendar = Calendar.getInstance();
@@ -51,6 +54,7 @@ public class CourseEdit extends AppCompatActivity {
         String cDName = iE.getStringExtra("tDName");
 
             termsDatabase = new TermsDatabase(CourseEdit.this);
+        courseId = termsDatabase.getCourseId(cDName);
             courseUpdate = findViewById(R.id.courseSave);
             courseName = findViewById(R.id.courseNameField);
             courseStatus = findViewById(R.id.courseStatusField);
@@ -62,7 +66,7 @@ public class CourseEdit extends AppCompatActivity {
             courseUpdate.setText("Update Course");
 
 //Adding Items to spinner
-        String[] items = new String[]{"Status","In progress", "Completed", "Dropped", "Plan to take"};
+        String[] items = new String[]{"In progress", "Completed", "Dropped", "Plan to take"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         courseStatus.setAdapter(adapter);
 
@@ -80,24 +84,23 @@ public class CourseEdit extends AppCompatActivity {
         courseName.setText(cDName);
         courseStart.setText(s4[0]);
         courseEnd.setText(s4[1]);
-        if (Objects.equals(s4[2], items[1])){
+        if (Objects.equals(s4[2], items[0])){
+            courseStatus.setSelection(0);
+        } else if (Objects.equals(s4[2], items[1])) {
             courseStatus.setSelection(1);
+
         } else if (Objects.equals(s4[2], items[2])) {
             courseStatus.setSelection(2);
 
         } else if (Objects.equals(s4[2], items[3])) {
             courseStatus.setSelection(3);
-
-        } else if (Objects.equals(s4[2], items[4])) {
-            courseStatus.setSelection(4);
         }
-        else if(!s4[2].equals(items[1]) && !s4[2].equals(items[2])&& !s4[2].equals(items[3])&& !s4[2].equals(items[4])){}
-        courseStatus.setSelection(0);
 
 
         courseInsName.setText(s4[3]);
         courseInsEmail.setText(s4[4]);
         courseInsPhone.setText(s4[5]);
+
 
             courseUpdate.setOnClickListener(view -> {
 
@@ -112,19 +115,60 @@ public class CourseEdit extends AppCompatActivity {
                 String cInsEmail = courseInsEmail.getText().toString();
                 String cTermId = termCourseId;
 
-                termsDatabase.updateCourse(cDName,cName,cStart,cEnd,cStatus,cInsName,cInsPhone,cInsEmail);
-                courseName.setText("");
-                courseStart.setText("");
-                courseEnd.setText("");
-                courseStatus.setSelection(0);
-                courseInsName.setText("");
-                courseInsPhone.setText("");
-                courseInsEmail.setText("");
 
-                i.putExtra("cEName", cName);
-                i.putExtra("tDName",termEName);
-                Toast.makeText(this, "Term Name = " + termEName, Toast.LENGTH_SHORT).show();
-                startActivity(i);
+                // validating if the text fields are empty or not.
+                if (cName.isEmpty() || cStart.isEmpty() || cEnd.isEmpty() || cStatus.isEmpty() || cInsName.isEmpty()
+                        || cInsPhone.isEmpty() || cInsEmail.isEmpty()) {
+                    Toast.makeText(CourseEdit.this, "One or more fields are empty..", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (cStart.equals(cEnd)) {
+                        Toast.makeText(CourseEdit.this, "Please Choose End Date greater then Start Date..", Toast.LENGTH_LONG).show();
+                    } else {
+                        boolean recordNameExists = termsDatabase.checkIfExists("Courses", "course", cName);
+                        boolean updateCheck = termsDatabase.checkIfExistsUpdate("Courses", "course", "idCourse",cName,courseId);
+                        try {
+                            boolean dateCheck = termsDatabase.dateChecker(cStart,cEnd);
+                            if(dateCheck){
+                                dateCorrect = true;
+                            }
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
+                        if (recordNameExists) {
+                            if(updateCheck){
+                                updatePass = true;
+
+                            }
+                            else
+                                Toast.makeText(this, cName + " already exists, please rename term.", Toast.LENGTH_LONG).show();
+
+                        }
+                        if(!recordNameExists){
+                            updatePass = true;
+                        }
+
+                        if (updatePass){
+                            if(!dateCorrect){
+                                Toast.makeText(this, "Start date is before current date or End Date is before Start Date.", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                termsDatabase.updateCourse(cDName, cName, cStart, cEnd, cStatus, cInsName, cInsPhone, cInsEmail);
+                                courseName.setText("");
+                                courseStart.setText("");
+                                courseEnd.setText("");
+                                courseStatus.setSelection(0);
+                                courseInsName.setText("");
+                                courseInsPhone.setText("");
+                                courseInsEmail.setText("");
+
+                                i.putExtra("cEName", cName);
+                                i.putExtra("tDName", termEName);
+                                Toast.makeText(this, "Course has Updated.", Toast.LENGTH_SHORT).show();
+                                startActivity(i);
+                            }
+                        }
+                    }
+                }
             });
     }
     private void startDatePicker(Button s, Button e){

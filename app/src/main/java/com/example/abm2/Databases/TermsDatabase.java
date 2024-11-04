@@ -5,12 +5,18 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import com.example.abm2.Model.Assessments;
 import com.example.abm2.Model.Courses;
+import com.example.abm2.Model.Notes;
 import com.example.abm2.Model.Terms;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class TermsDatabase extends SQLiteOpenHelper {
 
@@ -18,7 +24,7 @@ public class TermsDatabase extends SQLiteOpenHelper {
     private static final String DB_NAME = "termsDB";
 
     //  database version
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 8;
 
     // Terms table and Columns
     private static final String TERM_TABLE = "Terms";
@@ -48,6 +54,15 @@ public class TermsDatabase extends SQLiteOpenHelper {
     private static final String Assessment_Type = "assessmentType";
     private static final String Assessment_Info = "assessmentInfo";
     private static final String Course_Assessment_Id = "courseId";
+
+    // Notes table and Columns
+    private static final String Note_TABLE = "Notes";
+    private static final String Note_ID_COL = "noteId";
+    private static final String Note_Name_Col = "note";
+    private static final String Note_Course_ID_COL = "noteCourseId";
+    private static final String Note_Assessment_Info_ID_COL = "noteAssessmentId";
+
+
 
 
 
@@ -91,12 +106,18 @@ public class TermsDatabase extends SQLiteOpenHelper {
                 + Assessment_Info + " TEXT,"
                 + Course_Assessment_Id + " TEXT)";
 
+        String query4 = "CREATE TABLE " + Note_TABLE + " ("
+                + Note_ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + Note_Name_Col +" TEXT," + Note_Course_ID_COL+ " TEXT,"
+                + Note_Assessment_Info_ID_COL + " TEXT)";
+
 
 
         // method to execute above sql query
         db.execSQL(query1);
         db.execSQL(query2);
         db.execSQL(query3);
+        db.execSQL(query4);
 
     }
 
@@ -161,6 +182,24 @@ public class TermsDatabase extends SQLiteOpenHelper {
 
 
         db.insert(ASSESSMENT_TABLE, null, values);
+
+        // closing database.
+        db.close();
+    }
+    public void addNewNote(String noteName, String noteCourseId,String noteAssessmentId) {
+
+
+        // writing data into database.
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(Note_Name_Col, noteName);
+        values.put(Note_Course_ID_COL, noteCourseId);
+        values.put(Note_Assessment_Info_ID_COL, noteAssessmentId);
+
+
+        db.insert(Note_TABLE, null, values);
 
         // closing database.
         db.close();
@@ -335,6 +374,99 @@ public class TermsDatabase extends SQLiteOpenHelper {
         cursorAssessments.close();
         return assessmentsArrayList;
     }
+    public ArrayList<Notes> readNotes()
+    {
+        // on below line we are creating a
+        // database for reading our database.
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // on below line we are creating a cursor with query to
+        // read data from database.
+        Cursor cursorNotes
+                = db.rawQuery("SELECT * FROM " + Note_TABLE, null);
+
+        // on below line we are creating a new array list.
+        ArrayList<Notes> NotesArrayList
+                = new ArrayList<>();
+
+        // moving our cursor to first position.
+        if (cursorNotes.moveToFirst()) {
+            do {
+                // on below line we are adding the data from
+                // cursor to our array list.
+                NotesArrayList.add(new Notes(
+                        cursorNotes.getString(1),
+                        cursorNotes.getInt(2)));
+            } while (cursorNotes.moveToNext());
+            // moving our cursor to next.
+        }
+        // at last closing our cursor
+        // and returning our array list.
+        cursorNotes.close();
+        return NotesArrayList;
+    }
+    public ArrayList<Notes> readNotesWithCourseId(int s) {
+        // on below line we are creating a
+        // database for reading our database.
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // on below line we are creating a cursor with query to
+        // read data from database.
+        Cursor cursorNotes
+                = db.rawQuery("SELECT * FROM " + Note_TABLE + " Where " + TermsDatabase.Note_Course_ID_COL+
+                " = '"+s+"'",null);
+
+        // on below line we are creating a new array list.
+        ArrayList<Notes> NotesArrayList
+                = new ArrayList<>();
+
+        // moving our cursor to first position.
+        if (cursorNotes.moveToFirst()) {
+            do {
+                // on below line we are adding the data from
+                // cursor to our array list.
+                NotesArrayList.add(new Notes(
+                        cursorNotes.getString(1),
+                        cursorNotes.getInt(2)));
+            } while (cursorNotes.moveToNext());
+            // moving our cursor to next.
+        }
+        // at last closing our cursor
+        // and returning our array list.
+        cursorNotes.close();
+        return NotesArrayList;
+    }
+    public ArrayList<Notes> readNotesWithAssessmentId(int s) {
+        // on below line we are creating a
+        // database for reading our database.
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // on below line we are creating a cursor with query to
+        // read data from database.
+        Cursor cursorNotes
+                = db.rawQuery("SELECT * FROM " + Note_TABLE + " Where " + TermsDatabase.Note_Assessment_Info_ID_COL+
+                " = '"+s+"'",null);
+
+        // on below line we are creating a new array list.
+        ArrayList<Notes> NotesArrayList
+                = new ArrayList<>();
+
+        // moving our cursor to first position.
+        if (cursorNotes.moveToFirst()) {
+            do {
+                // on below line we are adding the data from
+                // cursor to our array list.
+                NotesArrayList.add(new Notes(
+                        cursorNotes.getString(1),
+                        cursorNotes.getInt(2)));
+            } while (cursorNotes.moveToNext());
+            // moving our cursor to next.
+        }
+        // at last closing our cursor
+        // and returning our array list.
+        cursorNotes.close();
+        return NotesArrayList;
+    }
 
     public void deleteTerm(String termName){
 
@@ -353,6 +485,12 @@ public class TermsDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.delete(ASSESSMENT_TABLE, "idAssessment=?", new String[]{assessmentId});
+        db.close();
+    }
+    public void deleteNote(String noteInfo){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(Note_TABLE,"note" , new String[]{noteInfo});
         db.close();
     }
     public void deleteCourseCascadeAssessments(String assessmentId){
@@ -570,6 +708,7 @@ public class TermsDatabase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TERM_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + COURSE_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + ASSESSMENT_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Note_TABLE);
         onCreate(db);
     }
 
@@ -599,6 +738,36 @@ public class TermsDatabase extends SQLiteOpenHelper {
 
         return exists;
     }
+    public boolean checkDates(String tableName,String columnName, String value){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + tableName + " WHERE " + columnName + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{value});
+
+        boolean exists = cursor.getCount() > 0;
+
+        cursor.close();
+        db.close();
+
+        return exists;
+    }
+    public boolean dateChecker(String sDT,String eDT) throws ParseException {
+        boolean timeBefore;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+        Date parsedStartDate = dateFormat.parse(sDT);
+        Date parsedEndDate = dateFormat.parse(eDT);
+        assert parsedStartDate != null;
+        assert parsedEndDate != null;
+        long startTime = parsedStartDate.getTime();
+        long endTime = parsedEndDate.getTime();
+        if(startTime < System.currentTimeMillis() || startTime > endTime){
+            timeBefore = false;
+        }
+        else {
+            timeBefore = true;
+        }
+        return timeBefore;
+    }
+
 
 
 }

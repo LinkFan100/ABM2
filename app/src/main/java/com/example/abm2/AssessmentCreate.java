@@ -60,22 +60,22 @@ public class AssessmentCreate extends AppCompatActivity {
         assessmentStart.setOnClickListener(view -> startDatePicker(assessmentStart,assessmentEnd));
         assessmentEnd.setOnClickListener(view -> endDatePicker(assessmentEnd));
         //Adding Items to spinner
-        String[] items = new String[]{"Type","Performance","Objective"};
+        String[] items = new String[]{"Performance","Objective"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         assessmentType.setAdapter(adapter);
 
 
         assessmentSave.setOnClickListener(view -> {
+
+                // validating if the text fields are empty or not.
+                if (assessmentName.getText().toString().isEmpty() || assessmentStart.getText().toString().isEmpty() ||
+                        assessmentEnd.getText().toString().isEmpty() || assessmentInfo.getText().toString().isEmpty() || assessmentType.getSelectedItem().toString().isEmpty()) {
+                    Toast.makeText(AssessmentCreate.this, "One or more fields are empty..", Toast.LENGTH_SHORT).show();
+                } else {
             if(assessmentStart.getText().toString().equals(assessmentEnd.getText().toString())){
                 Toast.makeText(AssessmentCreate.this, "Please Choose End Date greater then Start Date..", Toast.LENGTH_LONG).show();
             }
-
             else {
-                // validating if the text fields are empty or not.
-                if (assessmentName.getText().toString().isEmpty() && assessmentStart.getText().toString().isEmpty() &&
-                        assessmentEnd.getText().toString().isEmpty() && assessmentInfo.getText().toString().isEmpty() && assessmentType.getSelectedItem().toString().isEmpty()) {
-                    Toast.makeText(AssessmentCreate.this, "One or more fields are empty..", Toast.LENGTH_SHORT).show();
-                } else {
                     boolean recordExists = termsDatabase.checkIfExists("Assessment", "assessment", assessmentName.getText().toString());
                     if (recordExists) {
                         Toast.makeText(this, assessmentName.getText().toString() + " already exists, please rename assessment.", Toast.LENGTH_LONG).show();
@@ -85,6 +85,7 @@ public class AssessmentCreate extends AppCompatActivity {
                         Intent i = new Intent(this, CourseDetailedView.class);
                         i.putExtra("tmName", courseNameD);
                         i.putExtra("tName", termName);
+                        Toast.makeText(this, "Assessment Has been Created.", Toast.LENGTH_SHORT).show();
                         startActivity(i);
                     }
                 }
